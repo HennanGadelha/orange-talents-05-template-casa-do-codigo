@@ -1,14 +1,13 @@
 package br.com.casadocodigo.controllers;
 
+import br.com.casadocodigo.config.validacoes.ImpedeEmailDuplicadoValidator;
 import br.com.casadocodigo.dtos.AutorDto;
 import br.com.casadocodigo.models.Autor;
 import br.com.casadocodigo.repositories.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -19,9 +18,17 @@ public class AutorController {
     @Autowired
     AutorRepository autorRepository;
 
+    @Autowired
+    ImpedeEmailDuplicadoValidator impedeEmailDuplicadoValidator;
+
+    @InitBinder
+    public void init(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(impedeEmailDuplicadoValidator);
+    }
 
     @PostMapping
-    public ResponseEntity<AutorDto> inserirAutor(@RequestBody  @Valid  AutorDto autorDto){
+    public ResponseEntity<?> inserirAutor(@RequestBody  @Valid  AutorDto autorDto){
+
         Autor autor = autorDto.converterAutor(autorDto);
         autor = autorRepository.save(autor);
 
