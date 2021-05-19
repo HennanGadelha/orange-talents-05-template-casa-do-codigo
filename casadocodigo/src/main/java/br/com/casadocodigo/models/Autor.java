@@ -3,11 +3,10 @@ package br.com.casadocodigo.models;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Autor {
@@ -19,6 +18,9 @@ public class Autor {
     private String email;
     private String descricao;
     private Instant dataCadastro;
+
+    @OneToMany
+    private List<Livro> livros = new ArrayList<>();
 
     public Autor(){}
 
