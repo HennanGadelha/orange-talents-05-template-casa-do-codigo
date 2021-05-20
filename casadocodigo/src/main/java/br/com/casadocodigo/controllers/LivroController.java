@@ -1,5 +1,6 @@
 package br.com.casadocodigo.controllers;
 
+import br.com.casadocodigo.dtos.dtoResponse.LivroDtoDetalhesResponse;
 import br.com.casadocodigo.dtos.dtoResponse.LivroDtoResponse;
 import br.com.casadocodigo.dtos.dtosRequest.LivroDto;
 import br.com.casadocodigo.models.Livro;
@@ -13,8 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RestController
@@ -44,6 +48,18 @@ public class LivroController {
         Page<Livro> livros = livroRepository.findAll(pageable);
 
         return LivroDtoResponse.converterPageLivrosParaLivrosDtoResponsse(livros);
+
+    }
+
+    @GetMapping("/detalhes/{id}")
+    @Transactional
+    public ResponseEntity<LivroDtoDetalhesResponse> exibindoDetalhesLivro(@PathVariable Long id){
+
+        Optional<Livro> livro = livroRepository.findById(id);
+
+        if (livro.isPresent())  return ResponseEntity.ok(new LivroDtoDetalhesResponse(livro.get()));
+
+        return ResponseEntity.notFound().build();
 
     }
 

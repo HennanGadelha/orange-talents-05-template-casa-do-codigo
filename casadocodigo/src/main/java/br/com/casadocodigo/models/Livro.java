@@ -22,6 +22,7 @@ public class Livro {
     @OneToOne
     private Autor autor;
 
+    @Deprecated
     public Livro(){}
 
     public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numeroPaginas, String isbn, LocalDate dataPublicacao,

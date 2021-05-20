@@ -32,5 +32,24 @@ public class Autor {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Instant getDataCadastro() {
+        return dataCadastro;
+    }
 
 }

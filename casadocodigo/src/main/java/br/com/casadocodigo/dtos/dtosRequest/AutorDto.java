@@ -18,6 +18,12 @@ public class AutorDto {
     private String descricao;
 
 
+    public AutorDto(String nome, String email, String descricao) {
+        this.nome = nome;
+        this.email = email;
+        this.descricao = descricao;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -34,6 +40,8 @@ public class AutorDto {
 
         return new Autor(autorDto.getNome(), autorDto.getEmail(), autorDto.getDescricao());
 
-
     }
+
+
+
 }
