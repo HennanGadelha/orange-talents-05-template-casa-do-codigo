@@ -10,6 +10,7 @@ import br.com.casadocodigo.repositories.CategoriaRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class LivroDto {
     private String titulo;
     @NotNull @Length(max = 500)
     private String resumo;
+    @Lob
     private String sumario;
     @Min(20) @NotNull
     private BigDecimal preco;
