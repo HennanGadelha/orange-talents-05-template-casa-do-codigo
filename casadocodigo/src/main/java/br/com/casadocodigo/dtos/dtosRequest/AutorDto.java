@@ -1,4 +1,4 @@
-package br.com.casadocodigo.dtos;
+package br.com.casadocodigo.dtos.dtosRequest;
 
 import br.com.casadocodigo.config.validacoes.UniqueValue;
 import br.com.casadocodigo.models.Autor;

@@ -1,6 +1,6 @@
 package br.com.casadocodigo.controllers;
 
-import br.com.casadocodigo.dtos.CategoriaDto;
+import br.com.casadocodigo.dtos.dtosRequest.CategoriaDto;
 import br.com.casadocodigo.models.Categoria;
 import br.com.casadocodigo.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package br.com.casadocodigo.controllers;
 
-import br.com.casadocodigo.dtos.AutorDto;
+import br.com.casadocodigo.dtos.dtosRequest.AutorDto;
 import br.com.casadocodigo.models.Autor;
 import br.com.casadocodigo.repositories.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package br.com.casadocodigo.dtos;
+package br.com.casadocodigo.dtos.dtosRequest;
 
 import br.com.casadocodigo.config.validacoes.ExistingId;
 import br.com.casadocodigo.config.validacoes.UniqueValue;
@@ -9,15 +9,10 @@ import br.com.casadocodigo.repositories.AutorRepository;
 import br.com.casadocodigo.repositories.CategoriaRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Optional;
 
 public class LivroDto {
 
@@ -33,7 +28,7 @@ public class LivroDto {
     @NotNull @NotEmpty @NotBlank @UniqueValue(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
     @Future
-    @JsonFormat(pattern = "dd/MM/yyy", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataPublicacao;
 
     @NotNull @ExistingId(domainClass = Autor.class,fieldName = "id")
