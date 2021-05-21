@@ -1,6 +1,5 @@
 package br.com.casadocodigo.dtos.dtoResponse;
 
-import br.com.casadocodigo.dtos.dtosRequest.LivroDto;
 import br.com.casadocodigo.models.Livro;
 import org.springframework.data.domain.Page;
 

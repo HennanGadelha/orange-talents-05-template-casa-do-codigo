@@ -17,7 +17,7 @@ public class AutorController {
     AutorRepository autorRepository;
 
     @PostMapping
-    public ResponseEntity<?> inserirAutor(@RequestBody  @Valid  AutorDto autorDto){
+    public ResponseEntity<AutorDto> inserirAutor(@RequestBody  @Valid  AutorDto autorDto){
 
         Autor autor = autorDto.converterAutor(autorDto);
         autor = autorRepository.save(autor);
