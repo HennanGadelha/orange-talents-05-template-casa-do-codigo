@@ -10,14 +10,27 @@ public class Estado {
     private Long id;
     private String nome;
 
-
-    public Estado(){}
-
     @ManyToOne
     private Pais pais;
+    public Estado(){}
+
 
     public Estado(String nome, Pais pais) {
         this.nome = nome;
         this.pais = pais;
     }
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+    
+    
 }

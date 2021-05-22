@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 
 public class EstadoDto {
 
-
     @NotNull
     private String nome;
+
 
     @NotNull @ExistingId(domainClass = Pais.class,fieldName = "id")
     private Long idPais;

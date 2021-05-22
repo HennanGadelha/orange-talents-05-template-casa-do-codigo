@@ -16,29 +16,27 @@ import javax.validation.Valid;
 @RequestMapping("/estados")
 public class EstadoController {
 
-    @Autowired
-    EstadoRepository estadoRepository;
-    @Autowired
-    PaisRepository paisRepository;
+	@Autowired
+	EstadoRepository estadoRepository;
 
-    @Autowired
-    ValidacaoEstadoPorPais validacaoEstadoPorPais;
+	@Autowired
+	PaisRepository paisRepository;
 
+	@Autowired
+	ValidacaoEstadoPorPais validacaoEstadoPorPais;
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(validacaoEstadoPorPais);
-    }
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(validacaoEstadoPorPais);
+	}
 
+	@PostMapping
+	public ResponseEntity<EstadoDto> cadastrarEstado(@RequestBody @Valid EstadoDto estadoDto) {
 
-    @PostMapping
-    public ResponseEntity<EstadoDto> cadastrarEstado(@RequestBody @Valid  EstadoDto estadoDto){
+		Estado estado = estadoDto.converterEstadoDtoParaEstado(estadoDto, paisRepository);
+		estadoRepository.save(estado);
+		return ResponseEntity.ok().body(estadoDto);
 
-        Estado estado = estadoDto.converterEstadoDtoParaEstado(estadoDto, paisRepository);
-        estadoRepository.save(estado);
-        return ResponseEntity.ok().body(estadoDto);
-
-    }
-
+	}
 
 }

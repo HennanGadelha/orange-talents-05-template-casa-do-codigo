@@ -19,47 +19,48 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
 
-
 @RestController
-@RequestMapping(value="/livros")
+@RequestMapping(value = "/livros")
 public class LivroController {
 
-    @Autowired
-    LivroRepository livroRepository;
+	@Autowired
+	LivroRepository livroRepository;
 
-    @Autowired AutorRepository autorRepository;
-    @Autowired CategoriaRepository categoriaRepository;
+	@Autowired
+	AutorRepository autorRepository;
+	@Autowired
+	CategoriaRepository categoriaRepository;
 
-    @PostMapping
-    public ResponseEntity<LivroDto> inserindoLivro(@RequestBody @Valid LivroDto livroDto){
+	@PostMapping
+	public ResponseEntity<LivroDto> inserindoLivro(@RequestBody @Valid LivroDto livroDto) {
 
-        Livro livro = livroDto.converterLivroDtoParaLivro(livroDto, autorRepository, categoriaRepository);
-        livro = livroRepository.save(livro);
-        return ResponseEntity.ok().body(livroDto);
+		Livro livro = livroDto.converterLivroDtoParaLivro(livroDto, autorRepository, categoriaRepository);
+		livro = livroRepository.save(livro);
+		return ResponseEntity.ok().body(livroDto);
 
-    }
+	}
 
+	@GetMapping
+	public Page<LivroDtoResponse> listaLivros(
+			@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-    @GetMapping
-    public Page<LivroDtoResponse> listaLivros(@PageableDefault(page = 0, size = 5, sort = "id",
-            direction = Sort.Direction.DESC) Pageable pageable){
+		Page<Livro> livros = livroRepository.findAll(pageable);
 
-        Page<Livro> livros = livroRepository.findAll(pageable);
+		return LivroDtoResponse.converterPageLivrosParaLivrosDtoResponsse(livros);
 
-        return LivroDtoResponse.converterPageLivrosParaLivrosDtoResponsse(livros);
+	}
 
-    }
+	@GetMapping("/detalhes/{id}")
+	@Transactional
+	public ResponseEntity<LivroDtoDetalhesResponse> exibindoDetalhesLivro(@PathVariable Long id) {
 
-    @GetMapping("/detalhes/{id}")
-    @Transactional
-    public ResponseEntity<LivroDtoDetalhesResponse> exibindoDetalhesLivro(@PathVariable Long id){
+		Optional<Livro> livro = livroRepository.findById(id);
 
-        Optional<Livro> livro = livroRepository.findById(id);
+		if (livro.isPresent())
+			return ResponseEntity.ok(new LivroDtoDetalhesResponse(livro.get()));
 
-        if (livro.isPresent())  return ResponseEntity.ok(new LivroDtoDetalhesResponse(livro.get()));
+		return ResponseEntity.notFound().build();
 
-        return ResponseEntity.notFound().build();
-
-    }
+	}
 
 }

@@ -13,14 +13,11 @@ public class Pais {
     private Long id;
     private String nome;
 
-
-
     public Pais(){}
 
     public Pais(String nome) {
         this.nome = nome;
     }
-
 
     public void setNome(String nome) {
         this.nome = nome;
